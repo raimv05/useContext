@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState } from "react";
+import Child from "./Child";
+
+export const MyContext = createContext();
 
 function App() {
+  const [data, setData] = useState();
+  const getData = (item) => {
+    console.log(item);
+    setData(item);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MyContext.Provider
+      value={{
+        value: "Hello, world!",
+        superValue: "I am Super Child.",
+        superDuperValue: "I am the SuperDuper Child.",
+        getData: getData,
+      }}
+    >
+      <h1>This is the parent component {data}</h1>
+      <Child />
+    </MyContext.Provider>
   );
 }
 
